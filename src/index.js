@@ -27,19 +27,29 @@ class Square extends React.Component {
 class Board extends React.Component {
     constructor(props) {
         super(props);
+        // To collect data from multiple children, or to have two child components communicate with each other,
+        // you need to declare the shared state in their parent component instead.
+        // The parent component can pass the state back down to the children by using props;
+        // this keeps the child components in sync with each other and with the parent component.
         this.state = {
             squares: Array(9).fill(null)
         };
     }
 
     handleClick(i) {
-        const  squares = this.state.squares.slice();
+        // We use slice to maintain immutability.
+        // The main benefit of immutability is that it helps you build pure components in React.
+        // Immutable data can easily determine if changes have been made
+        // which helps to determine when a component requires re-rendering.
+        const squares = this.state.squares.slice();
         squares[i] = 'X';
         this.setState({squares: squares});
     }
 
     renderSquare(i) {
         return (
+            // We’re passing down two props from Board to Square: value and onClick.
+            // The onClick prop is a function that Square can call when clicked.
             <Square
                 value={this.state.squares[i]}
                 onClick={() => this.handleClick(i)}
