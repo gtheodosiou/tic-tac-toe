@@ -87,22 +87,6 @@ class Game extends React.Component {
         };
     }
 
-    handleClick(i) {
-        // We use slice to maintain immutability.
-        // The main benefit of immutability is that it helps you build pure components in React.
-        // Immutable data can easily determine if changes have been made
-        // which helps to determine when a component requires re-rendering.
-        const squares = this.state.squares.slice();
-        if (calculateWinner(squares) || squares[i]) {
-            return;
-        }
-        squares[i] = this.state.xIsNext ? 'X' : 'O';
-        this.setState({
-            squares: squares,
-            xIsNext: !this.state.xIsNext,
-        });
-    }
-
     render() {
         const winner = calculateWinner(this.state.squares);
         let status;
@@ -121,11 +105,37 @@ class Game extends React.Component {
                     />
                 </div>
                 <div className="game-info">
+                    <div className="newGame">
+                        <button onClick={this.resetGame}>New Game</button>
+                    </div>
                     <div className="status">{status}</div>
                 </div>
             </div>
         );
     }
+
+    handleClick(i) {
+        // We use slice to maintain immutability.
+        // The main benefit of immutability is that it helps you build pure components in React.
+        // Immutable data can easily determine if changes have been made
+        // which helps to determine when a component requires re-rendering.
+        const squares = this.state.squares.slice();
+        if (calculateWinner(squares) || squares[i]) {
+            return;
+        }
+        squares[i] = this.state.xIsNext ? 'X' : 'O';
+        this.setState({
+            squares: squares,
+            xIsNext: !this.state.xIsNext,
+        });
+    }
+
+    resetGame = () => {
+        this.setState({
+            squares: Array(9).fill(null),
+            xIsNext: true,
+        });
+    };
 }
 
 // ========================================
