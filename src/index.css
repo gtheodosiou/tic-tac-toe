@@ -42,9 +42,23 @@ ol, ul {
 
 .game {
   display: flex;
+  flex-direction: column;
+  width: 250px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.game-content {
+  display: flex;
   flex-direction: row;
 }
 
 .game-info {
   margin-left: 20px;
+}
+
+.status {
+  margin-top: 20px;
 }
